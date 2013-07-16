@@ -9,7 +9,7 @@
   :source-paths ["src/clojure"]
 
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [clj-pail "0.1.3-SNAPSHOT"]
+                 [clj-pail "0.1.3"]
                  [clj-thrift "0.1.0"]]
 
   :profiles {:1.3 {:dependencies [[org.clojure/clojure "1.3.0"]]}
