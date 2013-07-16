@@ -1,5 +1,5 @@
 (defproject pail-thrift "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "Serialization and partitioning strategies for using Thrift with clj-pail."
   :url "https://github.com/dcuddeback/pail-thrift"
   :license {:name "MIT License"
             :url "http://opensource.org/licenses/MIT"}
