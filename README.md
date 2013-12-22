@@ -34,7 +34,7 @@ provides serializers and partitioners that can be used with the `gen-structure` 
 (gen-structure example.pail.PailStructure
                :type MyUnion
                :serializer (s/thrift-serializer MyUnion)
-               :partition (p/union-partitioner MyUnion))
+               :partitioner (p/union-partitioner MyUnion))
 ~~~
 
 In the above example, we define a `PailStructure` that serializes the `example.thrift.MyUnion` type
@@ -61,8 +61,9 @@ you may want the partitioner to be specific to your application. For this reason
 partitioners are designed to be composed by application-specific ones.
 
 Generalized partitioners are defined in
-[`pail-thrift.partitioner`](src/clojure/pail_thrift/partitioner.clj). Currently, there is only a
-partitioner for Thrift unions.
+[`pail-thrift.partitioner`](src/clojure/pail_thrift/partitioner.clj). Currently, there are 4 partitioners.
+Two that use field names, two that use field id's. Two of which that read one level down into any field ending
+in 'property' and containing a union to create a second level of partitioning.
 
 
 ## License
