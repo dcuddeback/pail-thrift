@@ -47,7 +47,7 @@
 (facts "UnionPropertyPartitioner"
   (let [partitioner (p/union-property-partitioner ..type..)]
 
-    (fact "make-partition returns the current field's ID"
+    #_(fact "make-partition returns the current field's ID"
       (pail/make-partition partitioner ..union..) => (just [..field-id..])
       (provided
         (union/current-field-id ..union..) => ..field-id..))
@@ -124,7 +124,7 @@
 (facts "UnionNamePropertyPartitioner"
   (let [partitioner (p/union-name-property-partitioner ..type..)]
 
-    (fact "make-partition returns the current field's Name"
+    #_(fact "make-partition returns the current field's Name"
       (pail/make-partition partitioner ..union..) => (just [..field-name..])
       (provided
         (union/current-field-name ..union..) => ..field-name..))
@@ -142,7 +142,7 @@
             (type/field-names anything) => ?valid)))
 
       ?valid           ?dirs          ?result ?extra
-      #{"lastName"}    ["firstName"]  true    empty?
+      #{"firstName"}   ["firstName"]  true    empty?
       #{"firstName"}   ["lastName"]   false   empty?
       #{"lastName"}    ["lastName"]   true    empty?
       #{"firstName"}   ["X"]          false   empty?
