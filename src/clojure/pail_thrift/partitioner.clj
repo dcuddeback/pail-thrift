@@ -114,7 +114,7 @@
     (p/make-partition
      [this object]
      (let [res (vector (union/current-field-id object))]
-       (if (re-find #"^.*[Pp]roperty$" (type/current-field-name object))
+       (if (re-find #"^.*[Pp]roperty$" (union/current-field-name object))
          (let [subunion (thrift/value (union/current-value object) :property)]
            (conj res (union/current-field-id subunion)))
        res)))
