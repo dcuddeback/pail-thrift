@@ -103,7 +103,7 @@
             (type/field-names anything) => ?valid)))
 
       ?valid           ?dirs          ?result ?extra
-      #{"lastName"}    ["firstName"]  true    empty?
+      #{"firstName"}    ["firstName"]  true    empty?
       #{"firstName"}   ["lastName"]   false   empty?
       #{"lastName"}    ["lastName"]   true    empty?
       #{"firstName"}   ["X"]          false   empty?
