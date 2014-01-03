@@ -6,11 +6,15 @@ struct Location {
   3: optional string country;
 }
 
-union Properties {
+union PropertyValues {
   1: i16 age;
   2: string phone;
-  3: string city;
   4: Location location;
+}
+
+struct Properties {
+  1: string name;
+  2: PropertyValues property;
 }
 
 struct Name {

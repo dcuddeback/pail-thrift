@@ -1,8 +1,10 @@
 (ns pail-thrift.partitioner-test
   (:require [pail-thrift.partitioner :as p]
             [clj-pail.partitioner :as pail]
+            [clj-thrift.base :as base]
             [clj-thrift.union :as union]
             [clj-thrift.type :as type])
+  (:import (pail_thrift.fakes Identity Location Name Properties))
   (:use midje.sweet))
 
 
@@ -13,6 +15,25 @@
       (pail/make-partition partitioner ..union..) => (just [..field-id..])
       (provided
         (union/current-field-id ..union..) => ..field-id..))
+
+    (tabular "make a partition for the current structure"
+           (fact
+            (let [partitioner (p/union-partitioner Identity)]
+              (pail/make-partition partitioner (base/build ?type ?attributes)) => ?result))
+
+           ?type         ?attributes                ?result
+           Identity     {:property
+                         {:name "Eric" :property
+                          {:phone "555-555-5555"}}} [3]
+
+           Identity     {:property
+                         {:name "Eric" :property
+                          {:location
+                           {:city "Asheville"}}}}   [3]
+
+           Identity     {:name
+                         {:firstName "Eric"
+                          :lastName "Gebhart"}}     [1])
 
     (tabular "validate"
       (do
@@ -52,6 +73,25 @@
       (provided
         (union/current-field-id ..union..) => ..field-id..))
 
+    (tabular "make a partition for the current structure"
+           (fact
+            (let [partitioner (p/union-property-partitioner Identity)]
+              (pail/make-partition partitioner (base/build ?type ?attributes)) => ?result))
+
+           ?type         ?attributes                ?result
+           Identity     {:property
+                         {:name "Eric" :property
+                          {:phone "555-555-5555"}}} [3 2]
+
+           Identity     {:property
+                         {:name "Eric" :property
+                          {:location
+                           {:city "Asheville"}}}}   [3 4]
+
+           Identity     {:name
+                         {:firstName "Eric"
+                          :lastName "Gebhart"}}     [1])
+
     (tabular "validate"
       (do
         (fact "is valid if dir is a valid field ID"
@@ -89,6 +129,25 @@
       (pail/make-partition partitioner ..union..) => (just [..field-name..])
       (provided
         (union/current-field-name ..union..) => ..field-name..))
+
+    (tabular "make a partition for the current structure"
+           (fact
+            (let [partitioner (p/union-name-partitioner Identity)]
+              (pail/make-partition partitioner (base/build ?type ?attributes)) => ?result))
+
+           ?type         ?attributes                ?result
+           Identity     {:property
+                         {:name "Eric" :property
+                          {:phone "555-555-5555"}}} ["property"]
+
+           Identity     {:property
+                         {:name "Eric" :property
+                          {:location
+                           {:city "Asheville"}}}}   ["property"]
+
+           Identity     {:name
+                         {:firstName "Eric"
+                          :lastName "Gebhart"}}     ["name"])
 
     (tabular "validate"
       (do
@@ -128,6 +187,25 @@
       (pail/make-partition partitioner ..union..) => (just [..field-name..])
       (provided
         (union/current-field-name ..union..) => ..field-name..))
+
+    (tabular "make a partition for the current structure"
+           (fact
+            (let [partitioner (p/union-name-property-partitioner Identity)]
+              (pail/make-partition partitioner (base/build ?type ?attributes)) => ?result))
+
+           ?type         ?attributes                ?result
+           Identity     {:property
+                         {:name "Eric" :property
+                          {:phone "555-555-5555"}}} ["property" "phone"]
+
+           Identity     {:property
+                         {:name "Eric" :property
+                          {:location
+                           {:city "Asheville"}}}}   ["property" "location"]
+
+           Identity     {:name
+                         {:firstName "Eric"
+                          :lastName "Gebhart"}}     ["name"])
 
     (tabular "validate"
       (do
