@@ -1,4 +1,4 @@
-(defproject pail-thrift "0.1.1"
+(defproject pail-thrift "0.1.2-SNAPSHOT"
   :description "Serialization and partitioning strategies for using Thrift with clj-pail."
   :url "https://github.com/dcuddeback/pail-thrift"
   :license {:name "MIT License"
